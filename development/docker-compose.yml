@@ -1,0 +1,19 @@
+services:
+  category_api:
+    image: node:20-alpine
+    volumes:
+      - ../:/category_api
+    working_dir: /category_api
+    ports:
+      - 3000:3000
+    env_file: ../.env
+    environment:
+      - APPLICATION_NAME=category_management_api
+      - PORT=3000
+    command: ash -c "npm ci && npm run dev"
+    networks:
+      - category
+networks:
+  category:
+    external: false
+    driver: bridge
