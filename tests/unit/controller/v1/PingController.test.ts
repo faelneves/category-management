@@ -13,7 +13,6 @@ describe('PingController', () => {
     };
 
     instance.execute(req, res);
-    expect(res.status).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(mockJsonResponse).toHaveBeenCalled();
   });
