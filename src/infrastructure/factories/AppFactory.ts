@@ -1,5 +1,5 @@
 import { RequestHandler, Router, json } from 'express';
-import { AppConfig } from '../../application/config/AppConfig';
+import { AppConfig } from '../../config/AppConfig';
 import App from '../../application/App';
 
 export default class AppFactory {
