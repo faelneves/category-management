@@ -1,4 +1,14 @@
 services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: category
+    networks:
+      - category
+    ports:
+      - '5432:5432'
   category_api:
     image: node:20-alpine
     volumes:
@@ -7,10 +17,15 @@ services:
     ports:
       - 3000:3000
     env_file: ../.env
+    links:
+      - postgres
+    depends_on:
+      - postgres
     environment:
       - APPLICATION_NAME=category_management_api
       - PORT=3000
-    command: ash -c "npm ci && npm run dev"
+      - DATABASE_URL=postgresql://user:password@postgres:5432/category
+    command: ash -c "npm ci && npm run migrate && npm run dev"
     networks:
       - category
 networks:
