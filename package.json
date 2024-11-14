@@ -4,9 +4,10 @@
   "description": "The Category Management is an API that allows vendors to organize products into a hierarchical structure.",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts",
-    "migrate": "prisma migrate deploy"
+    "migrate": "prisma migrate deploy",
+    "test": "jest --bail --forceExit",
+    "test:unit": "jest --bail --forceExit --passWithNoTests \"tests/unit/.*\\.test\\.ts\""
   },
   "author": "Rafael Neves",
   "license": "ISC",
@@ -19,9 +20,14 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.2.0",
     "@types/express": "^5.0.0",
+    "@types/faker": "^6.6.11",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7",
     "prisma": "^5.22.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.3"
