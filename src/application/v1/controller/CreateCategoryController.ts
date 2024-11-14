@@ -14,7 +14,8 @@ export default class CreateCategoryController {
 
       response.status(201).json(category);
     } catch (error: any | HttpError) {
-      response.status(error.code ?? 500).json({ error: error.message });
+      const httpCode = error instanceof HttpError ? error.code : 500;
+      response.status(httpCode).json({ error: error.message });
     }
   };
 }
