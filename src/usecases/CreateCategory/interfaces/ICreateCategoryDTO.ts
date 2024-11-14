@@ -1,5 +1,5 @@
 export default interface ICreateCategoryDTO {
   name: string;
-  active: boolean;
+  active?: boolean;
   parentId?: string;
 }

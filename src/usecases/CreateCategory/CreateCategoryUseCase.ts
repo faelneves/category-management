@@ -10,10 +10,12 @@ export class CreateCategoryUseCase implements ICreateCategoryUseCase {
 
   async handle(categoryDTO: ICreateCategoryDTO): Promise<ICategory> {
     const id = uuidv4();
+    const active = categoryDTO.active ?? true;
 
     if (!categoryDTO.parentId) {
       return await this.repository.create({
         id,
+        active,
         hierarchyLevel: 1,
         ...categoryDTO,
       });
@@ -39,6 +41,7 @@ export class CreateCategoryUseCase implements ICreateCategoryUseCase {
 
     return await this.repository.create({
       id,
+      active,
       hierarchyLevel: parent.hierarchyLevel + 1,
       ...categoryDTO,
     });
