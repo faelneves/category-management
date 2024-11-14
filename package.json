@@ -7,7 +7,8 @@
     "dev": "nodemon src/index.ts",
     "migrate": "prisma migrate deploy",
     "test": "jest --bail --forceExit",
-    "test:unit": "jest --bail --forceExit --passWithNoTests \"tests/unit/.*\\.test\\.ts\""
+    "test:unit": "jest --bail --forceExit --passWithNoTests \"tests/unit/.*\\.test\\.ts\"",
+    "test:coverage": "npm run test -- --coverage"
   },
   "author": "Rafael Neves",
   "license": "ISC",
