@@ -18,8 +18,8 @@ model Category {
   name      String
   hierarchyLevel Int        @default(1)
   active    Boolean    @default(true)
-  parentId  String?    @unique(map: "unique_name_per_parent")
-  parent    Category?  @relation("CategoryToParent", fields: [parentId], references: [id], onDelete: Cascade)
+  parentId  String?   
+  parent    Category?  @relation("CategoryToParent", fields: [parentId], references: [id], onDelete: Cascade, map: "fk_category_parent")
   children  Category[] @relation("CategoryToParent")
 
   @@index([parentId])
