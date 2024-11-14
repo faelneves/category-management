@@ -8,3 +8,11 @@ export const categoryMock: ICategory = {
   active: faker.datatype.boolean(),
   parentId: faker.string.uuid(),
 };
+
+export const parentCategoryMock: ICategory = {
+  id: faker.string.uuid(),
+  name: faker.lorem.word(),
+  hierarchyLevel: 1,
+  active: faker.datatype.boolean(),
+  parentId: faker.string.uuid(),
+};
