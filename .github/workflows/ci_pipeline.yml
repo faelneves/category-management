@@ -11,6 +11,9 @@ jobs:
         node-version: [20.x]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Install dependencies
         run: npm install
 
@@ -25,5 +28,11 @@ jobs:
         node-version: [20.x]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build application
         run: npm run build
