@@ -1,7 +1,17 @@
 import { ICategory } from '../../src/domain/entities/ICategory';
-import { ICategoryRepository } from './../../src/domain/repositories/ICategoryRepository';
+import {
+  ICategoryRepository,
+  IListCategoryDTO,
+  IUpdateCategoryDTO,
+} from './../../src/domain/repositories/ICategoryRepository';
 
 export default class CategoryRepositoryMock implements ICategoryRepository {
+  list(_filter: IListCategoryDTO): Promise<ICategory[]> {
+    return Promise.resolve([]);
+  }
+  update(_categoryId: string, category: IUpdateCategoryDTO): Promise<ICategory> {
+    return Promise.resolve(category as ICategory);
+  }
   create(category: ICategory): Promise<ICategory> {
     return Promise.resolve(category);
   }

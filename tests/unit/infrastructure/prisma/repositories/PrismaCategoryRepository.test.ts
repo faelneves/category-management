@@ -10,6 +10,7 @@ jest.mock('@prisma/client', () => {
         $connect: jest.fn(),
         category: {
           create: jest.fn(),
+          update: jest.fn(),
           findUnique: jest.fn(),
           findMany: jest.fn(),
           delete: jest.fn(),
@@ -20,6 +21,44 @@ jest.mock('@prisma/client', () => {
 });
 
 describe('PrismaCategoryRepository', () => {
+  describe('list', () => {
+    it('should return an array of categories', async () => {
+      prismaInstance.category.findMany = jest.fn().mockResolvedValueOnce([categoryMock]);
+      const instance = new PrismaCategoryRepository(prismaInstance);
+
+      const foundCategories = await instance.list({ name: categoryMock.name });
+
+      expect(foundCategories).toEqual([categoryMock]);
+    });
+
+    it('should throw an error when prisma throws', async () => {
+      prismaInstance.category.findMany = jest.fn().mockRejectedValueOnce(new Error('Prisma error'));
+      const instance = new PrismaCategoryRepository(prismaInstance);
+
+      await expect(instance.list({ name: categoryMock.name })).rejects.toThrow(new Error('Prisma error'));
+    });
+  });
+
+  describe('update', () => {
+    it('should update a category', async () => {
+      prismaInstance.category.update = jest.fn().mockResolvedValueOnce(categoryMock);
+      const instance = new PrismaCategoryRepository(prismaInstance);
+
+      const category = await instance.update(categoryMock.id, { active: true });
+
+      expect(category).toBe(categoryMock);
+    });
+
+    it('should throw an error when prisma throws', async () => {
+      prismaInstance.category.update = jest.fn().mockRejectedValueOnce(new Error('Prisma error'));
+      const instance = new PrismaCategoryRepository(prismaInstance);
+
+      await expect(instance.update(categoryMock.id, { active: true })).rejects.toThrow(
+        'Faild to update category: Prisma error',
+      );
+    });
+  });
+
   describe('create', () => {
     it('should create a new category', async () => {
       prismaInstance.category.create = jest.fn().mockImplementationOnce((category) => category);
