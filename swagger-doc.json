@@ -1,0 +1,274 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Category Management API",
+    "version": "1.0.0",
+    "description": "API for managing categories in the application"
+  },
+  "paths": {
+    "/category/v1/ping": {
+      "get": {
+        "summary": "Ping the server",
+        "operationId": "pingServer",
+        "responses": {
+          "200": {
+            "description": "Successful ping response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "example": "true"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/v1/category": {
+      "post": {
+        "summary": "Create a new category",
+        "operationId": "createCategory",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategory"
+              },
+              "required": ["name"]
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a list of categories",
+        "operationId": "listCategories",
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "73516ee0-96bb-4326-98a2-419d0ce246e2"
+            },
+            "description": "Filter categories by parent ID"
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "description": "Filter categories by active status"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Electronics"
+            },
+            "description": "Filter categories by name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/v1/category/{id}": {
+      "get": {
+        "summary": "Get a category by ID",
+        "operationId": "getCategoryById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "73516ee0-96bb-4326-98a2-419d0ce246e2"
+            },
+            "description": "ID of the category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a category by ID",
+        "operationId": "updateCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "73516ee0-96bb-4326-98a2-419d0ce246e2"
+            },
+            "description": "ID of the category"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a category by ID",
+        "operationId": "deleteCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "73516ee0-96bb-4326-98a2-419d0ce246e2"
+            },
+            "description": "ID of the category"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category deleted successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpdateCategory": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Electronics"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "CreateCategory": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Electronics"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "parentId": {
+            "type": "string",
+            "nullable": true,
+            "example": "73516ee0-96bb-4326-98a2-419d0ce246e2"
+          }
+        },
+        "required": ["name"]
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "73516ee0-96bb-4326-98a2-419d0ce246e2"
+          },
+          "name": {
+            "type": "string",
+            "example": "Electronics"
+          },
+          "hierarchyLevel": {
+            "type": "integer",
+            "example": 1
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "parentId": {
+            "type": "string",
+            "nullable": true,
+            "example": "73516ee0-96bb-4326-98a2-419d0ce246e2"
+          }
+        }
+      }
+    }
+  }
+}
