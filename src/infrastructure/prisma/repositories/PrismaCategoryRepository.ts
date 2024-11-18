@@ -75,6 +75,9 @@ export class PrismaCategoryRepository implements ICategoryRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.category.delete({ where: { id } });
+    const deletedCategory = await this.prisma.category.delete({ where: { id } });
+    if (deletedCategory == null) {
+      throw new HttpError('Category not found.', 404);
+    }
   }
 }

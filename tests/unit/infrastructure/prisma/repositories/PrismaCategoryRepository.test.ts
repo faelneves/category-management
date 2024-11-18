@@ -115,7 +115,7 @@ describe('PrismaCategoryRepository', () => {
 
   describe('delete', () => {
     it('should delete a category', async () => {
-      prismaInstance.category.delete = jest.fn();
+      prismaInstance.category.delete = jest.fn().mockResolvedValueOnce(categoryMock);
       const instance = new PrismaCategoryRepository(prismaInstance);
 
       await instance.delete(categoryMock.id);
