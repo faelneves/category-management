@@ -1,4 +1,4 @@
-import { ICategoryRepository } from 'src/domain/repositories/ICategoryRepository';
+import { ICategoryRepository } from '../../domain/repositories/ICategoryRepository';
 import IDeleteCategoryUseCase from './interfaces/IDeleteCategoryUseCase';
 
 export class DeleteCategoryUseCase implements IDeleteCategoryUseCase {

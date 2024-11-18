@@ -1,6 +1,6 @@
-import { ICategory } from 'src/domain/entities/ICategory';
+import { ICategory } from '../../domain/entities/ICategory';
 import IGetCategoryUseCase from './interfaces/IGetCategoryUseCase';
-import { ICategoryRepository } from 'src/domain/repositories/ICategoryRepository';
+import { ICategoryRepository } from '../../domain/repositories/ICategoryRepository';
 
 export class GetCategoryUseCase implements IGetCategoryUseCase {
   constructor(private repository: ICategoryRepository) {}
