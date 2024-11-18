@@ -7,6 +7,7 @@ import GetCategoryControllerFactory from '../../infrastructure/factories/control
 import CategoryIdSchema from './schemas/CategoryIdSchema';
 import updateCategorySchema from './schemas/UpdateCategorySchema';
 import UpdateCategoryControllerFactory from '../../infrastructure/factories/controller/UpdateCategoryControllerFactory';
+import DeleteCategoryControllerFactory from '../../infrastructure/factories/controller/DeleteCategoryControllerFactory';
 
 const routerV1 = Router();
 
@@ -30,6 +31,12 @@ const routerV1 = Router();
     validateSchema(CategoryIdSchema, 'params'),
     validateSchema(updateCategorySchema, 'body'),
     UpdateCategoryControllerFactory.make().execute,
+  );
+
+  routerV1.delete(
+    '/category/:id',
+    validateSchema(CategoryIdSchema, 'params'),
+    DeleteCategoryControllerFactory.make().execute,
   );
 })();
 
