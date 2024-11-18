@@ -14,5 +14,5 @@ export const parentCategoryMock: ICategory = {
   name: faker.lorem.word(),
   hierarchyLevel: 1,
   active: faker.datatype.boolean(),
-  parentId: faker.string.uuid(),
+  parentId: null,
 };
