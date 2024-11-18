@@ -5,6 +5,8 @@ import { validateSchema } from './middlewares/ValidateSchema';
 import createCategorySchema from './schemas/CreateCategorySchema';
 import GetCategoryControllerFactory from '../../infrastructure/factories/controller/GetCategoryControllerFactory';
 import CategoryIdSchema from './schemas/CategoryIdSchema';
+import updateCategorySchema from './schemas/UpdateCategorySchema';
+import UpdateCategoryControllerFactory from '../../infrastructure/factories/controller/UpdateCategoryControllerFactory';
 
 const routerV1 = Router();
 
@@ -21,6 +23,13 @@ const routerV1 = Router();
     '/category/:id',
     validateSchema(CategoryIdSchema, 'params'),
     GetCategoryControllerFactory.make().execute,
+  );
+
+  routerV1.patch(
+    '/category/:id',
+    validateSchema(CategoryIdSchema, 'params'),
+    validateSchema(updateCategorySchema, 'body'),
+    UpdateCategoryControllerFactory.make().execute,
   );
 })();
 
