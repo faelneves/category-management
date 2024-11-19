@@ -20,6 +20,9 @@ jobs:
       - name: Run Unit tests
         run: npm run test:unit
 
+      - name: Run Integration tests
+        run: npm run test:integration
+
   build:
     timeout-minutes: 10
     runs-on: ubuntu-latest
