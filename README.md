@@ -82,6 +82,12 @@ npm test
 npm run test:unit
 ```
 
+- Run integration tests only:
+
+```bash
+npm run test:integration
+```
+
 - Run with coverage:
 
 ```bash
